@@ -9,6 +9,7 @@ from pathlib import Path
 
 data_folder = Path.cwd() / 'J440 - BHP Handrails Inspection'
 
+
 fields = [
     'Submission Id',
     'Damage Mechanism',
@@ -179,6 +180,11 @@ df = pd.read_excel(data_folder / 'f7aa715f-0a5e-4886-9f76-6b63e94a91c2.xlsx', sh
 
 defaults = dict(Facility = "BHP Nickel West", Date="")
 
+templates = {'P1': 'P1.pdf',
+             'P2': 'P2.pdf',
+             'P3': 'P3.pdf',
+             'P4': 'P4.pdf',}
+
 records = process_data(df=df, defaults=defaults)
 records.to_excel('filename.xlsx', sheet_name='Sheet1', index=False)
 records = records.to_dict(orient='records')
@@ -200,7 +206,8 @@ for record in records:
         filled_output_dir = 'filled_pdf.pdf'
         overlay_dir = 'overlay.pdf'
         merge_dir = f'Output/{record['Submission Id']}.pdf'
-        template_dir =r"J440_Templates/P1.pdf"
+
+        template_dir =rf"J440_Templates/{templates[record['Defect priorisation']]}"
         main(report_data.to_custom_dict(),overlay_dir,template_dir,filled_output_dir,
             merge_dir,image_paths,top_left_x,top_left_y,width,
             height,spacing)
