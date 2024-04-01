@@ -7,6 +7,8 @@ from pydantic import BaseModel, ValidationError
 import pandas as pd
 from pathlib import Path
 
+
+
 data_folder = Path.cwd() / 'J440 - BHP Handrails Inspection'
 
 
@@ -188,7 +190,7 @@ templates = {'P1': 'P1.pdf',
 records = process_data(df=df, defaults=defaults)
 records.to_excel('filename.xlsx', sheet_name='Sheet1', index=False)
 records = records.to_dict(orient='records')
-top_left_x = 200  
+top_left_x = 208  
 top_left_y = 50  
 width = 275     
 height = 300     
